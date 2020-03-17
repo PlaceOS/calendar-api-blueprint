@@ -1,0 +1,479 @@
+FORMAT: 1A
+HOST: https://example.domain/
+
+# PlaceOS Staff API
+
+PlaceOS Staff API calls.
+
+
+## Calendars [/api/staff/v1/calendars]
+
+### List personal calendars [GET]
+
+List users calendars
+
++ Response 200 (application/json)
+
+        [
+          {
+            id: "calendar@id",
+            name: "My Calendar"
+          }
+        ]
+
+### Available rooms [GET /api/staff/v1/calendars/availability?zone_ids={zone_ids}&system_ids={system_ids}&calendars={calendars}&period_start={period_start}&period_end={period_end}]
+
+Lists rooms that are available in the time period specified
+
++ Parameters
+    + zone_ids: `id1,id2` (Query param, optional) - (string) check rooms in the selected zones
+    + system_ids: `sys1,sys2` (Query param, optional) - (string) check specified rooms
+    + calendars: `cal1_id,cal2_id` (Query param, optional) - (string) check specified user calendars
+    + period_start: `12345` (Query param, required) - (integer) unix epoch start time 
+    + period_end: `23456` (Query param, required) - (integer) unix epoch end time
+
++ Response 200 (application/json)
+
+        [
+          {
+            id: "calendar@id",
+            name: "My Calendar",
+            capacity: 20,
+            features: "VidConf, Whiteboard",
+            bookable: true
+          }
+        ]
+
+
+## Events [/api/staff/v1/events]
+
+### List events occuring [GET /api/staff/v1/events?zone_ids={zone_ids}&system_ids={system_ids}&calendars={calendars}&period_start={period_start}&period_end={period_end}]
+
+Attachments won't be returned on this request
+
++ Parameters
+    + zone_ids: `id1,id2` (Query param, optional) - (string) grab events from rooms in the selected zones
+    + system_ids: `sys1,sys2` (Query param, optional) - (string) grab events from specified rooms
+    + calendars: `cal1_id,cal2_id` (Query param, optional) - (string) grab events from user calendars
+    + period_start: `12345` (Query param, required) - (integer) unix epoch start time 
+    + period_end: `23456` (Query param, required) - (integer) unix epoch end time
+    
++ Response 200 (application/json)
+
+        [
+            {
+                host: "user@email"
+                calendar: "calendar_id"
+                creator: "optional@secretary",
+                attendees: [
+                    {
+                        name: "Bob",
+                        email: "bob@place.com"
+                    }
+                ],
+                title:  "name of the meeting",
+                body: "event details",
+                private: false,
+                event_start: 12345,
+                event_end: 23456,
+                timezone: "Sydney",
+                all_day: false,
+                location: [
+                    {
+                        text: "clear text location",
+                        address: "23 Daly Ave, Wahroonga",
+                        coordinates: {lat: "1234,231", long: "12312,232"}
+                    }
+                ],
+                recurring: true,
+                recurrence: {
+                    range_start: 12345,
+                    range_end: 23456,
+                    days_of_week: 4,
+                    interval: 2,
+                    pattern: 1
+                },
+                attachments: [
+                    {
+                        name: "file_name.ext",
+                        blob: "base64 bytes"
+                    }
+                ],
+                extension_data: {
+                    whatever: "you want"
+                }
+            }
+        ]
+
+### Get an event [GET /api/staff/v1/events/{event_id}/?system_id={system_id}&calendar={calendar}]
+
+Returns the complete details of an event
+
++ Parameters
+    + event_id: `id` (URI param, required) - (string) the ID of the event
+    + calendar: `personal@calendar` (Query param, optional) - (string) the personal calendar this event exists on
+    + system_id: `sysid` (Query param, optional) - (string) the system representing the calendar this event exists on
+
++ Response 200
+
+        {
+            host: "user@email"
+            calendar: "calendar_id"
+            creator: "optional@secretary",
+            attendees: [
+                {
+                    name: "Bob",
+                    email: "bob@place.com"
+                }
+            ],
+            title:  "name of the meeting",
+            body: "event details",
+            private: false,
+            event_start: 12345,
+            event_end: 23456,
+            timezone: "Sydney",
+            all_day: false,
+            location: [
+                {
+                    text: "clear text location",
+                    address: "23 Daly Ave, Wahroonga",
+                    coordinates: {lat: "1234,231", long: "12312,232"}
+                }
+            ],
+            recurring: true,
+            recurrence: {
+                range_start: 12345,
+                range_end: 23456,
+                days_of_week: 4,
+                interval: 2,
+                pattern: 1
+            },
+            attachments: [
+                {
+                    name: "file_name.ext",
+                    blob: "base64 bytes"
+                }
+            ],
+            extension_data: {
+                whatever: "you want"
+            }
+        }
+
+
+### Edit an event [PATCH /api/staff/v1/events/{event_id}/?system_id={system_id}&calendar={calendar}]
+
+edits the details of an event, allowed if the staff member is attending
+
++ Parameters
+    + event_id: `id` (URI param, required) - (string) the ID of the event
+    + calendar: `personal@calendar` (Query param, optional) - (string) the personal calendar this event exists on
+    + system_id: `sysid` (Query param, optional) - (string) the system representing the calendar this event exists on
+
++ Request (application/json)
+
+        {
+            body: "new event details"
+        }
+
++ Response 202 (application/json)
+
+        {
+            host: "user@email"
+            calendar: "calendar_id"
+            creator: "optional@secretary",
+            attendees: [
+                {
+                    name: "Bob",
+                    email: "bob@place.com"
+                }
+            ],
+            title:  "name of the meeting",
+            body: "new event details",
+            private: false,
+            event_start: 12345,
+            event_end: 23456,
+            timezone: "Sydney",
+            all_day: false,
+            location: [
+                {
+                    text: "clear text location",
+                    address: "23 Daly Ave, Wahroonga",
+                    coordinates: {lat: "1234,231", long: "12312,232"}
+                }
+            ],
+            recurring: true,
+            recurrence: {
+                range_start: 12345,
+                range_end: 23456,
+                days_of_week: 4,
+                interval: 2,
+                pattern: 1
+            },
+            attachments: [
+                {
+                    name: "file_name.ext",
+                    blob: "base64 bytes"
+                }
+            ],
+            extension_data: {
+                whatever: "you want"
+            }
+        }
+
+
+
+### Delete event [DELETE /api/staff/v1/events/{event_id}/?system_id={system_id}&calendar={calendar}]
+
+Delete an event
+
++ Parameters
+    + event_id: `id` (URI param, required) - (string) the ID of the event
+    + calendar: `personal@calendar` (Query param, optional) - (string) the personal calendar this event exists on
+    + system_id: `sysid` (Query param, optional) - (string) the system representing the calendar this event exists on
+
++ Response 202
+
+
+### Guest list [GET /api/staff/v1/events/{event_id}/guests?system_id={system_id}&calendar={calendar}]
+
+Returns the list of guests that are attending an event
+
++ Parameters
+    + event_id: `id` (URI param, required) - (string) the ID of the event
+    + calendar: `personal@calendar` (Query param, optional) - (string) the personal calendar this event exists on
+    + system_id: `sysid` (Query param, optional) - (string) the system representing the calendar this event exists on
+
++ Response 200
+
+        [
+            {
+                name: "Steve",
+                email: "steve@mail.com",
+                phone: "+61 234 345 678",
+                organisation: "T-Mart",
+                notes: "great guy",
+                checked_in: false,
+                photo: "https://storage.com/steve.jpeg"
+            }
+        ]
+        
+### Guest check-in [POST /api/staff/v1/events/{event_id}/guests/{guest_id}/checkin?state={state}]
+
+Returns the list of guests that are attending an event
+
++ Parameters
+    + event_id: `eventid` (URI param, required) - (string) the ID of the event
+    + guest_id: `guestid` (URI param, required) - (string) the ID of the guest
+    + state: `true` (Query param, optional) - (bool) the check-in state for the meeting, defaults to true
+
++ Response 200
+
+        {
+            name: "Steve",
+            email: "steve@mail.com",
+            phone: "+61 234 345 678",
+            organisation: "T-Mart",
+            notes: "great guy",
+            checked_in: true,
+            photo: "https://storage.com/steve.jpeg"
+        }
+
+
+## Staff [/api/staff/v1/people]
+
+### Search staff [GET /api/staff/v1/people?q={q}]
+
+Search for a staff member, will only return location information if it has been pre-calculated
+
++ Parameters
+    + q: `search` (Query param, optional) - (string) the search string
+    
++ Response 200 (application/json)
+
+        [
+            {
+                name: "Steve",
+                email: "steve@mail.com",
+                phone: "+61 234 345 678",
+                department: "Engineering",
+                photo: "https://storage.com/steve.jpeg",
+                card_number: 12345,
+                staff_id: "stevevt",
+                location: {
+                    meeting: {
+                        building: "zone_id",
+                        level: "zone_id",
+                        system: "system_id",
+                        map_id: "sys-1234",
+                        event_id: "meeting id"
+                    },
+                    desk_id: {
+                        building: "zone_id",
+                        level: "zone_id",
+                        map_id: "sys-1234",
+                        checked_in: 1234
+                    },
+                    laptop: {
+                        building: "zone_id",
+                        level: "zone_id",
+                        x: 1234,
+                        y: 123,
+                        last_seen: 12345
+                    },
+                    mobile: {
+                        building: "zone_id",
+                        level: "zone_id",
+                        x: 1234,
+                        y: 123,
+                        last_seen: 12345
+                    },
+                    geo: {
+                        lat: "1234",
+                        long: "123",
+                        last_seen: 12345
+                    }
+                }
+            }
+        ]
+
+### Locate Staff [GET /api/staff/v1/people/{email}/]
+
+Looks up the details of a staff member using their email address.
+Will attempt to locate them even if it has not been pre-calculated
+
++ Parameters
+    + email: `email@address` (URI param, optional) - (string) the email of the staff member
+    
++ Response 200 (application/json)
+
+        {
+            name: "Steve",
+            email: "steve@mail.com",
+            phone: "+61 234 345 678",
+            department: "Engineering",
+            photo: "https://storage.com/steve.jpeg",
+            card_number: 12345,
+            staff_id: "stevevt",
+            location: {
+                meeting: {
+                    building: "zone_id",
+                    level: "zone_id",
+                    system: "system_id",
+                    map_id: "sys-1234",
+                    event_id: "meeting id"
+                },
+                desk_id: {
+                    building: "zone_id",
+                    level: "zone_id",
+                    map_id: "sys-1234",
+                    checked_in: 1234
+                },
+                laptop: {
+                    building: "zone_id",
+                    level: "zone_id",
+                    x: 1234,
+                    y: 123,
+                    last_seen: 12345
+                },
+                mobile: {
+                    building: "zone_id",
+                    level: "zone_id",
+                    x: 1234,
+                    y: 123,
+                    last_seen: 12345
+                },
+                geo: {
+                    lat: "1234",
+                    long: "123",
+                    last_seen: 12345
+                }
+            }
+        }
+
+
+## Guests [/api/staff/v1/guests]
+
+### Search guests [GET /api/staff/v1/guests?q={q}]
+
+Returns the list of guests that have ever been entered into the system and if they are currently checked in
+
++ Parameters
+    + q: `search` (Query param, optional) - (string) the search string
+
++ Response 200
+
+        [
+            {
+                name: "Steve",
+                email: "steve@mail.com",
+                phone: "+61 234 345 678",
+                organisation: "T-Mart",
+                notes: "great guy",
+                checked_in: false,
+                photo: "https://storage.com/steve.jpeg"
+            }
+        ]
+
+
+### List visiting guests [GET /api/staff/v1/guests?zone_ids={zone_ids}&system_ids={system_ids}&period_start={period_start}&period_end={period_end}]
+
+Returns the guest list for a specified time range
+
++ Parameters
+    + zone_ids: `id1,id2` (Query param, optional) - (string) check rooms in the selected zones
+    + system_ids: `sys1,sys2` (Query param, optional) - (string) check specified rooms
+    + period_start: `12345` (Query param, required) - (integer) unix epoch start time 
+    + period_end: `23456` (Query param, required) - (integer) unix epoch end time
+
++ Response 200
+
+        [
+            {
+                name: "Steve",
+                email: "steve@mail.com",
+                phone: "+61 234 345 678",
+                organisation: "T-Mart",
+                notes: "great guy",
+                checked_in: false,
+                visit_expected: true,
+                photo: "https://storage.com/steve.jpeg"
+            }
+        ]
+
+### Edit guest metadata [PATCH /api/staff/v1/guests/{guest_id}]
+
+Updates personal details about the guest in question
+    
++ Request (application/json)
+
+        {
+            name: "Steve",
+            phone: "+61 234 345 678",
+            organisation: "T-Mart",
+            notes: "great guy",
+            photo: "https://storage.com/steve.jpeg"
+        }
+
++ Response 202 (application/json)
+
+        {
+            name: "Steve",
+            email: "steve@mail.com",
+            phone: "+61 234 345 678",
+            organisation: "T-Mart",
+            notes: "great guy",
+            checked_in: false,
+            visit_expected: true,
+            photo: "https://storage.com/steve.jpeg"
+        }
+
+
+          
+### Delete guest metadata [DELETE /api/staff/v1/guests/{guest_id}]
+
+Delete metadata related to a specific guest
+
++ Parameters
+    + guest_id: `guest@email` (URI param, required) - the email address of the attending
+
++ Response 202
