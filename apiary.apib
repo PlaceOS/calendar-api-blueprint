@@ -279,6 +279,95 @@ Returns the list of guests that are attending an event
         }
 
 
+
+## Guests [/api/staff/v1/guests]
+
+### Search guests [GET /api/staff/v1/guests?q={q}]
+
+Returns the list of guests that have ever been entered into the system and if they are currently checked in
+
++ Parameters
+    + q: `search` (Query param, optional) - (string) the search string
+
++ Response 200
+
+        [
+            {
+                name: "Steve",
+                email: "steve@mail.com",
+                phone: "+61 234 345 678",
+                organisation: "T-Mart",
+                notes: "great guy",
+                checked_in: false,
+                photo: "https://storage.com/steve.jpeg"
+            }
+        ]
+
+
+### List visiting guests [GET /api/staff/v1/guests?zone_ids={zone_ids}&system_ids={system_ids}&period_start={period_start}&period_end={period_end}]
+
+Returns the guest list for a specified time range
+
++ Parameters
+    + zone_ids: `id1,id2` (Query param, optional) - (string) check rooms in the selected zones
+    + system_ids: `sys1,sys2` (Query param, optional) - (string) check specified rooms
+    + period_start: `12345` (Query param, required) - (integer) unix epoch start time 
+    + period_end: `23456` (Query param, required) - (integer) unix epoch end time
+
++ Response 200
+
+        [
+            {
+                name: "Steve",
+                email: "steve@mail.com",
+                phone: "+61 234 345 678",
+                organisation: "T-Mart",
+                notes: "great guy",
+                checked_in: false,
+                visit_expected: true,
+                photo: "https://storage.com/steve.jpeg"
+            }
+        ]
+
+### Edit guest metadata [PATCH /api/staff/v1/guests/{guest_id}]
+
+Updates personal details about the guest in question
+    
++ Request (application/json)
+
+        {
+            name: "Steve",
+            phone: "+61 234 345 678",
+            organisation: "T-Mart",
+            notes: "great guy",
+            photo: "https://storage.com/steve.jpeg"
+        }
+
++ Response 202 (application/json)
+
+        {
+            name: "Steve",
+            email: "steve@mail.com",
+            phone: "+61 234 345 678",
+            organisation: "T-Mart",
+            notes: "great guy",
+            checked_in: false,
+            visit_expected: true,
+            photo: "https://storage.com/steve.jpeg"
+        }
+
+
+          
+### Delete guest metadata [DELETE /api/staff/v1/guests/{guest_id}]
+
+Delete metadata related to a specific guest
+
++ Parameters
+    + guest_id: `guest@email` (URI param, required) - the email address of the attending
+
++ Response 202
+
+
 ## Staff [/api/staff/v1/people]
 
 ### Search staff [GET /api/staff/v1/people?q={q}]
@@ -389,91 +478,3 @@ Will attempt to locate them even if it has not been pre-calculated
                 }
             }
         }
-
-
-## Guests [/api/staff/v1/guests]
-
-### Search guests [GET /api/staff/v1/guests?q={q}]
-
-Returns the list of guests that have ever been entered into the system and if they are currently checked in
-
-+ Parameters
-    + q: `search` (Query param, optional) - (string) the search string
-
-+ Response 200
-
-        [
-            {
-                name: "Steve",
-                email: "steve@mail.com",
-                phone: "+61 234 345 678",
-                organisation: "T-Mart",
-                notes: "great guy",
-                checked_in: false,
-                photo: "https://storage.com/steve.jpeg"
-            }
-        ]
-
-
-### List visiting guests [GET /api/staff/v1/guests?zone_ids={zone_ids}&system_ids={system_ids}&period_start={period_start}&period_end={period_end}]
-
-Returns the guest list for a specified time range
-
-+ Parameters
-    + zone_ids: `id1,id2` (Query param, optional) - (string) check rooms in the selected zones
-    + system_ids: `sys1,sys2` (Query param, optional) - (string) check specified rooms
-    + period_start: `12345` (Query param, required) - (integer) unix epoch start time 
-    + period_end: `23456` (Query param, required) - (integer) unix epoch end time
-
-+ Response 200
-
-        [
-            {
-                name: "Steve",
-                email: "steve@mail.com",
-                phone: "+61 234 345 678",
-                organisation: "T-Mart",
-                notes: "great guy",
-                checked_in: false,
-                visit_expected: true,
-                photo: "https://storage.com/steve.jpeg"
-            }
-        ]
-
-### Edit guest metadata [PATCH /api/staff/v1/guests/{guest_id}]
-
-Updates personal details about the guest in question
-    
-+ Request (application/json)
-
-        {
-            name: "Steve",
-            phone: "+61 234 345 678",
-            organisation: "T-Mart",
-            notes: "great guy",
-            photo: "https://storage.com/steve.jpeg"
-        }
-
-+ Response 202 (application/json)
-
-        {
-            name: "Steve",
-            email: "steve@mail.com",
-            phone: "+61 234 345 678",
-            organisation: "T-Mart",
-            notes: "great guy",
-            checked_in: false,
-            visit_expected: true,
-            photo: "https://storage.com/steve.jpeg"
-        }
-
-
-          
-### Delete guest metadata [DELETE /api/staff/v1/guests/{guest_id}]
-
-Delete metadata related to a specific guest
-
-+ Parameters
-    + guest_id: `guest@email` (URI param, required) - the email address of the attending
-
-+ Response 202
