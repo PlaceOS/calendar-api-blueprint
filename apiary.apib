@@ -172,7 +172,13 @@ edits the details of an event, allowed if the staff member is attending
 + Request (application/json)
 
         {
-            body: "new event details"
+            body: "new event details",
+            extension_data: {
+                catering_order: [{
+                    item: "Choc Cake",
+                    qty: 1
+                }]
+            }
         }
 
 + Response 202 (application/json)
@@ -216,7 +222,11 @@ edits the details of an event, allowed if the staff member is attending
                 }
             ],
             extension_data: {
-                whatever: "you want"
+                whatever: "you want",
+                catering_order: [{
+                    item: "Choc Cake",
+                    qty: 1
+                }]
             }
         }
 
