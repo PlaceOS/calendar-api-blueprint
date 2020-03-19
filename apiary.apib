@@ -455,6 +455,30 @@ Returns the guest list for a specified time range
             }
         ]
 
+
+### Show guest [GET /api/staff/v1/guests/{guest_id}]
+
+Return the guest details
+
++ Response 200 (application/json)
+
+        {
+            name: "Steve",
+            email: "steve@mail.com",
+            phone: "+61 234 345 678",
+            organisation: "T-Mart",
+            notes: "great guy",
+            checked_in: false,
+            visit_expected: true,
+            photo: "https://storage.com/steve.jpeg",
+            extension_data: {
+                whatever: "you want",
+                perferred_coffee: "Flat white, skim milk, one sugar"
+            }
+        }
+
+
+
 ### Edit guest metadata [PATCH /api/staff/v1/guests/{guest_id}]
 
 Updates personal details about the guest in question
