@@ -175,7 +175,7 @@ Creates an event
                     email: "bob@place.com"
                 },
                 {
-                    email: "room@place.com"
+                    email: "steve@mail.com"
                 }
             ],
             title:  "name of the meeting",
@@ -227,7 +227,18 @@ Creates an event
                     email: "bob@place.com"
                 },
                 {
-                    email: "room@place.com"
+                    name: "Steve",
+                    email: "steve@mail.com",
+                    phone: "+61 234 345 678",
+                    organisation: "T-Mart",
+                    notes: "great guy",
+                    checked_in: false,
+                    visit_expected: false,
+                    photo: "https://storage.com/steve.jpeg",
+                    extension_data: {
+                        whatever: "you want",
+                        perferred_coffee: "Flat white, skim milk, one sugar"
+                    }
                 }
             ],
             title:  "name of the meeting",
@@ -281,6 +292,17 @@ edits the details of an event, allowed if the staff member is attending
 
         {
             body: "new event details",
+            attendees: [
+                {
+                    name: "Bob",
+                    email: "bob@place.com"
+                },
+                {
+                    name: "Steve",
+                    email: "steve@mail.com",
+                    visit_expected: true
+                }
+            ],
             extension_data: {
                 catering_order: [{
                     item: "Choc Cake",
@@ -299,6 +321,20 @@ edits the details of an event, allowed if the staff member is attending
                 {
                     name: "Bob",
                     email: "bob@place.com"
+                },
+                {
+                    name: "Steve",
+                    email: "steve@mail.com",
+                    phone: "+61 234 345 678",
+                    organisation: "T-Mart",
+                    notes: "great guy",
+                    checked_in: false,
+                    visit_expected: true,
+                    photo: "https://storage.com/steve.jpeg",
+                    extension_data: {
+                        whatever: "you want",
+                        perferred_coffee: "Flat white, skim milk, one sugar"
+                    }
                 }
             ],
             title:  "name of the meeting",
@@ -371,6 +407,7 @@ Returns the list of guests that are attending an event
                 organisation: "T-Mart",
                 notes: "great guy",
                 checked_in: false,
+                visit_expected: true,
                 photo: "https://storage.com/steve.jpeg",
                 extension_data: {
                     whatever: "you want",
@@ -397,6 +434,7 @@ Returns the list of guests that are attending an event
             organisation: "T-Mart",
             notes: "great guy",
             checked_in: true,
+            visit_expected: true,
             photo: "https://storage.com/steve.jpeg",
             extension_data: {
                 whatever: "you want",
@@ -410,7 +448,7 @@ Returns the list of guests that are attending an event
 
 ### Search guests [GET /api/staff/v1/guests?q={q}]
 
-Returns the list of guests that have ever been entered into the system and if they are currently checked in
+Returns the list of guests that have ever been entered into the system and if they are currently checked in or expected
 
 + Parameters
     + q: `search` (Query param, optional) - (string) the search string
@@ -425,6 +463,8 @@ Returns the list of guests that have ever been entered into the system and if th
                 organisation: "T-Mart",
                 notes: "great guy",
                 checked_in: false,
+                // is the guest expected today
+                visit_expected: true,
                 photo: "https://storage.com/steve.jpeg"
             }
         ]
@@ -450,6 +490,7 @@ Returns the guest list for a specified time range
                 organisation: "T-Mart",
                 notes: "great guy",
                 checked_in: false,
+                // is the guest expected in this time range
                 visit_expected: true,
                 photo: "https://storage.com/steve.jpeg"
             }
@@ -469,6 +510,7 @@ Return the guest details
             organisation: "T-Mart",
             notes: "great guy",
             checked_in: false,
+            // Is the guest expected today
             visit_expected: true,
             photo: "https://storage.com/steve.jpeg",
             extension_data: {
