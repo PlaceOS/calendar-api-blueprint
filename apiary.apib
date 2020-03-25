@@ -62,6 +62,7 @@ Attachments won't be returned on this request
 
         [
             {
+                id: "abcd",
                 host: "user@email",
                 calendar: "calendar_id",
                 creator: "optional@secretary",
@@ -117,6 +118,7 @@ Returns the complete details of an event
 + Response 200
 
         {
+            id: "abcd",
             host: "user@email",
             calendar: "calendar_id",
             creator: "optional@secretary",
@@ -167,6 +169,7 @@ Creates an event
 + Request (application/json)
 
         {
+            id: "abcd",
             host: "other@person.if.not.the.current.user",
             calendar: "calendar_id_if_not_users_default",
             attendees: [
@@ -218,6 +221,7 @@ Creates an event
 + Response 202 (application/json)
 
         {
+            id: "abcd",
             host: "user@email",
             calendar: "calendar_id",
             creator: "optional@secretary",
@@ -314,6 +318,7 @@ edits the details of an event, allowed if the staff member is attending
 + Response 202 (application/json)
 
         {
+            id: "abcd",
             host: "user@email"
             calendar: "calendar_id"
             creator: "optional@secretary",
@@ -501,6 +506,9 @@ Returns the guest list for a specified time range
 
 Return the guest details
 
++ Parameters
+    + guest_id: `guest@email` (URI param, required) - the email address of the attending
+
 + Response 200 (application/json)
 
         {
@@ -524,6 +532,9 @@ Return the guest details
 ### Edit guest metadata [PATCH /api/staff/v1/guests/{guest_id}]
 
 Updates personal details about the guest in question
+
++ Parameters
+    + guest_id: `guest@email` (URI param, required) - the email address of the attending
     
 + Request (application/json)
 
@@ -566,6 +577,30 @@ Delete metadata related to a specific guest
     + guest_id: `guest@email` (URI param, required) - the email address of the attending
 
 + Response 202
+
+
+### Guest upcoming visits [GET /api/staff/v1/guests/{guest_id}/meetings]
+
+Return a list of upcoming meetings this guest is attending
+
++ Parameters
+    + guest_id: `guest@email` (URI param, required) - the email address of the attending
+
++ Response 200 (application/json)
+
+        [
+            {
+                host: "user@email",
+                host_name: "Bob",
+                event_id: "abcd",
+                calendar: "calendar_id",
+                title:  "name of the meeting",
+                event_start: 12345,
+                event_end: 23456,
+                timezone: "Sydney",
+                all_day: false
+            }
+        ]
 
 
 ## Staff [/api/staff/v1/people]
