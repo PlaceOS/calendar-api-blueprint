@@ -21,7 +21,7 @@ List users calendars
           }
         ]
 
-### Available rooms [GET /api/staff/v1/calendars/availability?zone_ids={zone_ids}&system_ids={system_ids}&calendars={calendars}&period_start={period_start}&period_end={period_end}]
+### Available rooms [GET /api/staff/v1/calendars/availability?zone_ids={zone_ids}&system_ids={system_ids}&calendars={calendars}&period_start={period_start}&period_end={period_end}&capacity={capacity}&features={features}]
 
 Lists rooms that are available in the time period specified
 
@@ -29,6 +29,8 @@ Lists rooms that are available in the time period specified
     + zone_ids: `id1,id2` (Query param, optional) - (string) check rooms in the selected zones
     + system_ids: `sys1,sys2` (Query param, optional) - (string) check specified rooms
     + calendars: `cal1_id,cal2_id` (Query param, optional) - (string) check specified user calendars
+    + capacity: `6` (Query param, optional) - (integer) the minimum space required
+    + features: `vidconf,whiteboard` (Query param, optional) - (string) a comma seperated list of room requirements
     + period_start: `12345` (Query param, required) - (integer) unix epoch start time 
     + period_end: `23456` (Query param, required) - (integer) unix epoch end time
 
