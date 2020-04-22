@@ -49,7 +49,7 @@ Lists rooms that are available in the time period specified
 
 ## Events [/api/staff/v1/events]
 
-### List events occuring [GET /api/staff/v1/events?zone_ids={zone_ids}&system_ids={system_ids}&calendars={calendars}&period_start={period_start}&period_end={period_end}]
+### List events occuring [GET /api/staff/v1/events?zone_ids={zone_ids}&system_ids={system_ids}&calendars={calendars}&period_start={period_start}&period_end={period_end}&include_cancelled={include_cancelled}]
 
 Attachments won't be returned on this request
 
@@ -59,6 +59,7 @@ Attachments won't be returned on this request
     + calendars: `cal1_id,cal2_id` (Query param, optional) - (string) grab events from user calendars
     + period_start: `12345` (Query param, required) - (integer) unix epoch start time 
     + period_end: `23456` (Query param, required) - (integer) unix epoch end time
+    + include_cancelled: `true` (Query param, optional) - (bool) include events that have been cancelled in the results
     
 + Response 200 (application/json)
 
