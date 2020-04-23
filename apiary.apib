@@ -39,10 +39,18 @@ Lists rooms that are available in the time period specified
         [
           {
             id: "calendar@id",
-            name: "My Calendar",
-            capacity: 20,
-            features: "VidConf, Whiteboard",
-            bookable: true
+            name: "My Personal Calendar"
+          },
+          {
+            id: "resource_calendar@id",
+            name: "Resource Calendar Name",
+            system: {
+                id: "system id used to obtain this event",
+                name: "system display name",
+                capacity: 3,
+                features: "VidConf Whiteboard",
+                bookable: true
+            }
           }
         ]
 
@@ -110,7 +118,13 @@ Attachments won't be returned on this request
                         blob: "base64 bytes"
                     }
                 ],
-                system_id: "system id used to obtain this event",
+                system: {
+                    id: "system id used to obtain this event",
+                    name: "system display name",
+                    capacity: 3,
+                    features: "VidConf Whiteboard",
+                    bookable: true
+                },
                 extension_data: {
                     whatever: "you want"
                 }
@@ -168,7 +182,13 @@ Returns the complete details of an event
                     blob: "base64 bytes"
                 }
             ],
-            system_id: "system id used to obtain this event",
+            system: {
+                id: "system id used to obtain this event",
+                name: "system display name",
+                capacity: 3,
+                features: "VidConf Whiteboard",
+                bookable: true
+            },
             extension_data: {
                 whatever: "you want"
             }
@@ -222,7 +242,13 @@ Creates an event
                     blob: "base64 bytes"
                 }
             ],
-            system_id: "system id used to obtain this event",
+            system: {
+                id: "system id used to obtain this event",
+                name: "system display name",
+                capacity: 3,
+                features: "VidConf Whiteboard",
+                bookable: true
+            },
             extension_data: {
                 whatever: "you want",
                 catering_order: [{
@@ -288,7 +314,13 @@ Creates an event
                     blob: "base64 bytes"
                 }
             ],
-            system_id: "system id used to obtain this event",
+            system: {
+                id: "system id used to obtain this event",
+                name: "system display name",
+                capacity: 3,
+                features: "VidConf Whiteboard",
+                bookable: true
+            },
             extension_data: {
                 whatever: "you want",
                 catering_order: [{
@@ -388,7 +420,13 @@ edits the details of an event, allowed if the staff member is attending
                     blob: "base64 bytes"
                 }
             ],
-            system_id: "system id used to obtain this event",
+            system: {
+                id: "system id used to obtain this event",
+                name: "system display name",
+                capacity: 3,
+                features: "VidConf Whiteboard",
+                bookable: true
+            },
             extension_data: {
                 whatever: "you want",
                 catering_order: [{
