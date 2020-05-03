@@ -203,8 +203,8 @@ Creates an event
 
         {
             id: "abcd",
-            host: "other@person.if.not.the.current.user",
-            calendar: "calendar_id_if_not_users_default",
+            host: "calendar_id_if_not_users_default",
+            system_id: "system_id we want to make a booking for",
             attendees: [
                 {
                     name: "Bob",
@@ -242,13 +242,6 @@ Creates an event
                     blob: "base64 bytes"
                 }
             ],
-            system: {
-                id: "system id used to obtain this event",
-                name: "system display name",
-                capacity: 3,
-                features: "VidConf Whiteboard",
-                bookable: true
-            },
             extension_data: {
                 whatever: "you want",
                 catering_order: [{
