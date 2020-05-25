@@ -700,3 +700,89 @@ Will attempt to locate them even if it has not been pre-calculated
                 }
             }
         }
+
+
+## Favourites [/api/staff/v1/favourite/]
+
+### List favourite teams [GET /api/staff/v1/favourite/teams]
+
+List all favourite teams (groups of users)
+    
++ Response 200 (application/json)
+
+        [
+            {
+                name: "Project Alpha",
+                id: "fvtgr389dru23o"
+                members: [
+                    "john.smith@place.os",
+                    "another.person@place.os"
+                ]
+            },
+            {
+                name: "Friends",
+                id: "ljkirhu34omk5h"
+                members: [
+                    "someone.else@place.os",
+                    "not.me@place.os"
+                ]
+            }
+        ]
+
+### Create a new favourite team [POST /api/staff/v1/favourite/teams]
+    
++ Response 201 (application/json)
+
+        {
+            name: "Best Team Ever",
+            members: [
+                "john.smith@place.os",
+                "another.person@place.os"
+            ]
+        }
+
+### Edit an existing favourite team [PUT /api/staff/v1/favourite/teams/{id}]
+
+Replaces the team name and members
+
++ Response 200 (application/json)
+
+        {
+            name: "Return of the Best Team Ever",
+            members: [
+                "john.smith@place.os",
+                "another.person@place.os",
+                "not.another.person@place.os"
+            ]
+        }
+
+
+### Delete a favourite team [DELETE /api/staff/v1/favourite/teams/{id}]
+    
++ Response 202 (application/json)
+
+
+### List favourite desks [GET /api/staff/v1/favourite/desks]
+
+List favourite desks
+    
++ Response 200 (application/json)
+
+        [
+            {
+                id: "fvtgr389dru23o"
+            },
+            {
+                id: "ljkirhu34omk5h"
+            }
+        ]
+
+### Create a new favourite desk [POST /api/staff/v1/favourite/desks]
+    
++ Response 201 (application/json)
+
+
+### Delete a favourite desk [DELETE /api/staff/v1/favourite/desks/{id}]
+    
++ Response 202 (application/json)
+
