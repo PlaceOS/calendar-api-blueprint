@@ -303,6 +303,7 @@ Creates an event
 ### Edit an event [PATCH /api/staff/v1/events/{event_id}/?system_id={system_id}&calendar={calendar}]
 
 edits the details of an event, allowed if the staff member is attending.
+
 NOTE: either one of `calendar` or `system_id` is required.
 
 + Parameters
@@ -405,6 +406,7 @@ NOTE: either one of `calendar` or `system_id` is required.
 ### Delete event [DELETE /api/staff/v1/events/{event_id}/?system_id={system_id}&calendar={calendar}&notify={notify}]
 
 Delete an event
+
 NOTE: either one of `calendar` or `system_id` is required.
 
 + Parameters
@@ -419,6 +421,7 @@ NOTE: either one of `calendar` or `system_id` is required.
 ### Guest list [GET /api/staff/v1/events/{event_id}/guests?system_id={system_id}&calendar={calendar}]
 
 Returns the list of guests that are attending an event
+
 NOTE: either one of `calendar` or `system_id` is required.
 
 + Parameters
@@ -448,6 +451,7 @@ NOTE: either one of `calendar` or `system_id` is required.
 ### Guest check-in [POST /api/staff/v1/events/{event_id}/guests/{guest_id}/checkin?state={state}&system_id={system_id}&calendar={calendar}]
 
 Returns the list of guests that are attending an event
+
 NOTE: either one of `calendar` or `system_id` is required.
 
 + Parameters
@@ -481,7 +485,8 @@ NOTE: either one of `calendar` or `system_id` is required.
 ### Search guests [GET /api/staff/v1/guests?q={q}]
 
 Returns the list of guests that have ever been entered into the system and if they are currently checked in or expected
-NOTE: either one of `calendar` or `system_id` is required.
+
+fiNOTE: either one of `calendar` or `system_id` is required.
 
 + Parameters
     + q: `search` (Query param, optional) - (string) the search string
