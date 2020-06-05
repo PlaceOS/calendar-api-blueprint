@@ -422,12 +422,9 @@ NOTE: either one of `calendar` or `system_id` is required.
 
 Returns the list of guests that are attending an event
 
-NOTE: either one of `calendar` or `system_id` is required.
-
 + Parameters
     + event_id: `id` (URI param, required) - (string) the ID of the event
-    + calendar: `personal@calendar` (Query param, optional) - (string) the personal calendar this event exists on
-    + system_id: `sysid` (Query param, optional) - (string) the system representing the calendar this event exists on
+    + system_id: `sysid` (Query param, required) - (string) the system representing the calendar this event exists on
 
 + Response 200
 
@@ -452,14 +449,11 @@ NOTE: either one of `calendar` or `system_id` is required.
 
 Returns the list of guests that are attending an event
 
-NOTE: either one of `calendar` or `system_id` is required.
-
 + Parameters
     + event_id: `eventid` (URI param, required) - (string) the ID of the event
     + guest_id: `guestid` (URI param, required) - (string) the ID of the guest
     + state: `true` (Query param, optional) - (bool) the check-in state for the meeting, defaults to true
-    + calendar: `personal@calendar` (Query param, optional) - (string) the personal calendar this event exists on
-    + system_id: `sysid` (Query param, optional) - (string) the system representing the calendar this event exists on
+    + system_id: `sysid` (Query param, required) - (string) the system representing the calendar this event exists on
 
 + Response 200
 
@@ -485,8 +479,6 @@ NOTE: either one of `calendar` or `system_id` is required.
 ### Search guests [GET /api/staff/v1/guests?q={q}]
 
 Returns the list of guests that have ever been entered into the system and if they are currently checked in or expected
-
-fiNOTE: either one of `calendar` or `system_id` is required.
 
 + Parameters
     + q: `search` (Query param, optional) - (string) the search string
