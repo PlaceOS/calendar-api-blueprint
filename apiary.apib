@@ -704,3 +704,321 @@ Will attempt to locate them even if it has not been pre-calculated
                 }
             }
         }
+        
+
+## Bookings [/api/staff/v1/bookings]
+
+### Query bookings [GET /api/staff/v1/bookings?period_start={period_start}&period_end={period_end}&type={type}&zones={zones}&user={user}]
+
+Returns the list of guests that have ever been entered into the system and if they are currently checked in or expected
+
++ Parameters
+    + period_start: `1234` (Query param, required) - (integer) the start time as a unix epoch
+    + period_end: `1235` (Query param, required) - (integer) the end time as a unix epoch
+    + type: `desks` (Query param, required) - (string) the booking category we are interested in
+    + zones: `zone-1234,zone-4567` (Query param, optional) - (string) limits the search to the items in the zones specified
+    + user: `current` (Query param, optional) - (string) limits the search to the user specified or `current` user
+
++ Response 200
+
+        [
+            {
+                id: 123,
+                user_id: "user-1234",
+                user_email: "steve@domain.com",
+                user_name: "Name at Time of Booking",
+                
+                asset_id: "desk-12234",
+                zones: ["zone-123",  "zone-456"],
+                booking_type: "desk",
+
+                booking_start: 1234567,
+                booking_end: 1234589,
+                timezone: "Sydney",
+                
+                title: "optional",
+                description: "optional",
+                
+                checked_in: false,
+                rejected: false,
+                approved: true,
+                approver_id: "user-5678",
+                approver_email: "admin@domain.com",
+                approver_name: "Bob Jane",
+                extension_data: {
+                    anykind_of_data: "user defined"
+                }
+            }
+        ]
+
+
+### Show booking [GET /api/staff/v1/bookings/{booking_id}]
+
+Return the guest details
+
++ Parameters
+    + booking_id: `1234` (URI param, required) - the id of the booking
+
++ Response 200 (application/json)
+
+        {
+            id: 123,
+            user_id: "user-1234",
+            user_email: "steve@domain.com",
+            user_name: "Name at Time of Booking",
+            
+            asset_id: "desk-12234",
+            zones: ["zone-123",  "zone-456"],
+            booking_type: "desk",
+
+            booking_start: 1234567,
+            booking_end: 1234589,
+            timezone: "Sydney",
+            
+            title: "optional",
+            description: "optional",
+            
+            checked_in: false,
+            rejected: false,
+            approved: true,
+            approver_id: "user-5678",
+            approver_email: "admin@domain.com",
+            approver_name: "Bob Jane",
+            extension_data: {
+                anykind_of_data: "user defined"
+            }
+        }
+
+
+### Create booking [POST /api/staff/v1/bookings/]
+
+Creates a new booking
+    
++ Request (application/json)
+
+        {
+            asset_id: "desk-12234",
+            zones: ["zone-123",  "zone-456"],
+            booking_type: "desk",
+
+            booking_start: 1234567,
+            booking_end: 1234589,
+            timezone: "Sydney",
+            
+            title: "optional",
+            description: "optional",
+            extension_data: {
+                anykind_of_data: "user defined"
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            id: 123,
+            user_id: "user-1234",
+            user_email: "steve@domain.com",
+            user_name: "Name at Time of Booking",
+            
+            asset_id: "desk-12234",
+            zones: ["zone-123",  "zone-456"],
+            booking_type: "desk",
+
+            booking_start: 1234567,
+            booking_end: 1234589,
+            timezone: "Sydney",
+            
+            title: "optional",
+            description: "optional",
+            
+            checked_in: false,
+            rejected: false,
+            approved: false,
+            approver_id: nil,
+            approver_email: nil,
+            approver_name: nil,
+            extension_data: {
+                anykind_of_data: "user defined"
+            }
+        }
+
+
+### Edit booking [PATCH /api/staff/v1/bookings/{booking_id}]
+
+Edits an existing booking
+
++ Parameters
+    + booking_id: `1234` (URI param, required) - the id of the booking
+    
++ Request (application/json)
+
+        {
+            asset_id: "desk-12234",
+            zones: ["zone-123",  "zone-456"],
+            booking_type: "desk",
+
+            booking_start: 1234567,
+            booking_end: 1234589,
+            timezone: "Sydney",
+            
+            title: "optional",
+            description: "optional",
+            extension_data: {
+                anykind_of_data: "user defined"
+            }
+        }
+
++ Response 202 (application/json)
+
+        {
+            id: 123,
+            user_id: "user-1234",
+            user_email: "steve@domain.com",
+            user_name: "Name at Time of Booking",
+            
+            asset_id: "desk-12234",
+            zones: ["zone-123",  "zone-456"],
+            booking_type: "desk",
+
+            booking_start: 1234567,
+            booking_end: 1234589,
+            timezone: "Sydney",
+            
+            title: "optional",
+            description: "optional",
+            
+            checked_in: false,
+            rejected: false,
+            approved: false,
+            approver_id: nil,
+            approver_email: nil,
+            approver_name: nil,
+            extension_data: {
+                anykind_of_data: "user defined"
+            }
+        }
+
+
+### Delete booking [DELETE /api/staff/v1/bookings/{booking_id}]
+
+Deletes an existing booking
+
++ Parameters
+    + booking_id: `1234` (URI param, required) - the id of the booking
+    
++ Response 202
+
+
+### Approve booking [POST /api/staff/v1/bookings/{booking_id}/approve]
+
+Approves a booking
+
++ Parameters
+    + booking_id: `1234` (URI param, required) - the id of the booking
+
++ Response 200 (application/json)
+
+        {
+            id: 123,
+            user_id: "user-1234",
+            user_email: "steve@domain.com",
+            user_name: "Name at Time of Booking",
+            
+            asset_id: "desk-12234",
+            zones: ["zone-123",  "zone-456"],
+            booking_type: "desk",
+
+            booking_start: 1234567,
+            booking_end: 1234589,
+            timezone: "Sydney",
+            
+            title: "optional",
+            description: "optional",
+            
+            checked_in: false,
+            rejected: false,
+            approved: true,
+            approver_id: "user-5678",
+            approver_email: "admin@domain.com",
+            approver_name: "Bob Jane",
+            extension_data: {
+                anykind_of_data: "user defined"
+            }
+        }
+
+
+### Reject booking [POST /api/staff/v1/bookings/{booking_id}/reject]
+
+Rejects a booking
+
++ Parameters
+    + booking_id: `1234` (URI param, required) - the id of the booking
+
++ Response 200 (application/json)
+
+        {
+            id: 123,
+            user_id: "user-1234",
+            user_email: "steve@domain.com",
+            user_name: "Name at Time of Booking",
+            
+            asset_id: "desk-12234",
+            zones: ["zone-123",  "zone-456"],
+            booking_type: "desk",
+
+            booking_start: 1234567,
+            booking_end: 1234589,
+            timezone: "Sydney",
+            
+            title: "optional",
+            description: "optional",
+            
+            checked_in: false,
+            rejected: true,
+            approved: false,
+            approver_id: nil,
+            approver_email: nil,
+            approver_name: nil,
+            extension_data: {
+                anykind_of_data: "user defined"
+            }
+        }
+
+
+### Check-in booking [POST /api/staff/v1/bookings/{booking_id}/check_in?state={state}]
+
+Checks in a booking, person turned up
+
++ Parameters
+    + booking_id: `1234` (URI param, required) - the id of the booking
+    + state: `false` (Query param, optional) - (bool) maybe you want to check-out
+
++ Response 200 (application/json)
+
+        {
+            id: 123,
+            user_id: "user-1234",
+            user_email: "steve@domain.com",
+            user_name: "Name at Time of Booking",
+            
+            asset_id: "desk-12234",
+            zones: ["zone-123",  "zone-456"],
+            booking_type: "desk",
+
+            booking_start: 1234567,
+            booking_end: 1234589,
+            timezone: "Sydney",
+            
+            title: "optional",
+            description: "optional",
+            
+            checked_in: true,
+            rejected: false,
+            approved: true,
+            approver_id: "user-5678",
+            approver_email: "admin@domain.com",
+            approver_name: "Bob Jane",
+            extension_data: {
+                anykind_of_data: "user defined"
+            }
+        }
