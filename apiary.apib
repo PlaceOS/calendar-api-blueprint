@@ -418,6 +418,160 @@ NOTE: either one of `calendar` or `system_id` is required.
 + Response 202
 
 
+### Approve an event in a resource [POST /api/staff/v1/events/{event_id}/approve?system_id={system_id}]
+
+If a resource calendar has an event with `responseStatus: "needsAction"` the meeting can be approved by a resource manager
+
++ Parameters
+    + event_id: `id` (URI param, required) - (string) the ID of the event
+    + system_id: `sysid` (Query param, required) - (string) the system representing the calendar this event exists on
+
++ Response 202 (application/json)
+
+        {
+            id: "abcd",
+            status: "accepted",
+            host: "user@email"
+            calendar: "calendar_id"
+            creator: "optional@secretary",
+            attendees: [
+                {
+                    name: "Room 1234",
+                    email: "resource1234@place.com",
+                    resource: true,
+                    response_status: "accepted"
+                },
+                {
+                    name: "Steve",
+                    email: "steve@mail.com",
+                    phone: "+61 234 345 678",
+                    organisation: "T-Mart",
+                    notes: "great guy",
+                    checked_in: false,
+                    visit_expected: true,
+                    photo: "https://storage.com/steve.jpeg",
+                    extension_data: {
+                        whatever: "you want",
+                        perferred_coffee: "Flat white, skim milk, one sugar"
+                    }
+                }
+            ],
+            title:  "name of the meeting",
+            body: "new event details",
+            private: false,
+            event_start: 12345,
+            event_end: 23456,
+            timezone: "Sydney",
+            all_day: false,
+            location: "clear text location",
+            recurring: true,
+            recurrence: {
+                range_start: 12345,
+                range_end: 23456,
+                days_of_week: 4,
+                interval: 2,
+                pattern: 1
+            },
+            attachments: [
+                {
+                    name: "file_name.ext",
+                    blob: "base64 bytes"
+                }
+            ],
+            system: {
+                id: "system id used to obtain this event",
+                name: "system display name",
+                capacity: 3,
+                features: "VidConf Whiteboard",
+                bookable: true
+            },
+            extension_data: {
+                whatever: "you want",
+                catering_order: [{
+                    item: "Choc Cake",
+                    qty: 1
+                }]
+            }
+        }
+
+### Reject an event in a resource [POST /api/staff/v1/events/{event_id}/reject?system_id={system_id}]
+
+If a resource calendar has an event with `responseStatus: "needsAction"` the meeting can be rejected by a resource manager
+
++ Parameters
+    + event_id: `id` (URI param, required) - (string) the ID of the event
+    + system_id: `sysid` (Query param, required) - (string) the system representing the calendar this event exists on
+
++ Response 202 (application/json)
+
+        {
+            id: "abcd",
+            status: "accepted",
+            host: "user@email"
+            calendar: "calendar_id"
+            creator: "optional@secretary",
+            attendees: [
+                {
+                    name: "Room 1234",
+                    email: "resource1234@place.com",
+                    resource: true,
+                    response_status: "declined"
+                },
+                {
+                    name: "Steve",
+                    email: "steve@mail.com",
+                    phone: "+61 234 345 678",
+                    organisation: "T-Mart",
+                    notes: "great guy",
+                    checked_in: false,
+                    visit_expected: true,
+                    photo: "https://storage.com/steve.jpeg",
+                    extension_data: {
+                        whatever: "you want",
+                        perferred_coffee: "Flat white, skim milk, one sugar"
+                    }
+                }
+            ],
+            title:  "name of the meeting",
+            body: "new event details",
+            private: false,
+            event_start: 12345,
+            event_end: 23456,
+            timezone: "Sydney",
+            all_day: false,
+            location: "clear text location",
+            recurring: true,
+            recurrence: {
+                range_start: 12345,
+                range_end: 23456,
+                days_of_week: 4,
+                interval: 2,
+                pattern: 1
+            },
+            attachments: [
+                {
+                    name: "file_name.ext",
+                    blob: "base64 bytes"
+                }
+            ],
+            system: {
+                id: "system id used to obtain this event",
+                name: "system display name",
+                capacity: 3,
+                features: "VidConf Whiteboard",
+                bookable: true
+            },
+            extension_data: {
+                whatever: "you want",
+                catering_order: [{
+                    item: "Choc Cake",
+                    qty: 1
+                }]
+            }
+        }
+
+
+
 ### Guest list [GET /api/staff/v1/events/{event_id}/guests?system_id={system_id}&calendar={calendar}]
 
 Returns the list of guests that are attending an event
