@@ -1201,3 +1201,83 @@ Checks in a booking, person turned up
                 anykind_of_data: "user defined"
             }
         }
+        
+
+## Tenants [/api/staff/v1/tenants]
+
+### List tenants [GET /api/staff/v1/tenants]
+
+Returns the list of tenants
+
++ Response 200
+
+[
+    {
+        "id": 1,
+        "name": "a_friendly_tenant_label",
+        "domain": "an_existing_placeos_DOMAIN",
+        "platform": "office365"
+    },
+    {
+        "id": 2,
+        "name": "another_friendly_tenant_label",
+        "domain": "an_existing_placeos_DOMAIN",
+        "platform": "google"
+    }
+]
+
+
+
+### Create Tenant [POST /api/staff/v1/tenants]
+
+Create a new tenant
+
++ Request (application/json)
+
+{
+    "name": "an_o365_example",
+    "domain": "an_existing_placeos_DOMAIN",
+    "platform": "office365",
+    "credentials": {
+      "tenant": <string>,
+      "client_id":   <string>,
+      "client_secret": <string>    }
+}
+
++ Request (application/json)
+
+{
+    "name": "a_google_example",
+    "domain": "an_existing_placeos_DOMAIN",
+    "platform": "google",
+    "credentials": {
+      issuer:      <string>,
+      signing_key: <string>,
+      scopes:      <string>,
+      domain:      <string>,
+      sub:         <string>,
+      user_agent:  <string>
+    }
+}
+
++ Response 201
+
+{
+    "name": "an_o365_example",
+    "domain": "an_existing_placeos_DOMAIN",
+    "platform": "office365",
+    "credentials": {
+      "tenant": <string>,
+      "client_id":   <string>,
+      "client_secret": <string>    }
+}
+
+
+### Delete tenant [GET /api/staff/v1/tenants/{id}]
+
+Delete a tenant
+
++ Parameters
+    + id: `1234` (URI param, required) - the id of the tenant
+ 
++ Response 202
