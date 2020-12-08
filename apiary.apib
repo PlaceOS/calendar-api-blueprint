@@ -653,6 +653,10 @@ Returns the list of guests that are attending an event
 
 ## Guests [/api/staff/v1/guests]
 
+Guests are attendees of Events created with the PlaceOS api where:
+- The attendee in the Event was marked with `visit_expected: true` indicating that the Event organizer expects this person to physically come to the building to attende the meeting.
+- The attendee's email address domain is NOT one of the pre-defined internal enterprise email domains (configured during the set up of the PlaceOS instance).
+
 ### Search guests [GET /api/staff/v1/guests?q={q}]
 
 Returns the list of guests that have ever been entered into the system and if they are currently checked in or expected
@@ -1244,6 +1248,9 @@ Checks in a booking, person turned up
         
 
 ## Tenants [/api/staff/v1/tenants]
+
+A Tenant is a reference and credential to an external directory where PlaceOS will manage events and query users.
+[MS Graph](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) (aka Office365) and [Google Calendar](https://developers.google.com/calendar/auth) are supported
 
 ### List tenants [GET /api/staff/v1/tenants]
 
