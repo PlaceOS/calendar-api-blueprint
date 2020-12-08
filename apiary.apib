@@ -433,7 +433,10 @@ NOTE: either one of `calendar` or `system_id` is required.
 
 ### Approve an event in a resource [POST /api/staff/v1/events/{event_id}/approve?system_id={system_id}]
 
-If a resource calendar has an event with `responseStatus: "needsAction"` the meeting can be approved by a resource manager
+If a resource calendar has an event with `responseStatus: "needsAction"` the meeting can be approved by a resource manager.
+In the case of Exchange Online (o365):
+This effectively causes the room mailbox to "Accept" the meeting invite that it was invited to. 
+The Host will then generally receive an email stating that room has accepted.
 
 + Parameters
     + event_id: `id` (URI param, required) - (string) the ID of the event
@@ -510,6 +513,10 @@ If a resource calendar has an event with `responseStatus: "needsAction"` the mee
 ### Reject an event in a resource [POST /api/staff/v1/events/{event_id}/reject?system_id={system_id}]
 
 If a resource calendar has an event with `responseStatus: "needsAction"` the meeting can be rejected by a resource manager
+
+In the case of Exchange Online (o365):
+This effectively causes the room mailbox to "Decline" the meeting invite that it was invited to. 
+The Host will then generally receive an email stating that room has declined.
 
 + Parameters
     + event_id: `id` (URI param, required) - (string) the ID of the event
