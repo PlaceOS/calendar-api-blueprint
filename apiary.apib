@@ -62,6 +62,9 @@ Lists rooms that are available in the time period specified
 
 ## Events [/api/staff/v1/events]
 
+Events here refer to PlaceOS' abstraction of [MS Graph](https://docs.microsoft.com/en-us/graph/api/resources/event?view=graph-rest-1.0) (aka Office365) or [Google Calendar](https://developers.google.com/calendar/v3/reference/events) Events
+The purpose of the abstraction is to allow clients of the PlaceOS Staff API to not need to be concerned about which Calendar system is in use, while associating room resource calendars with PlaceOS Systems (usually a 1:1 mapping)
+
 ### List events occuring [GET /api/staff/v1/events?zone_ids={zone_ids}&system_ids={system_ids}&calendars={calendars}&period_start={period_start}&period_end={period_end}&include_cancelled={include_cancelled}]
 
 Attachments won't be returned on this request
@@ -919,6 +922,10 @@ Will attempt to locate them even if it has not been pre-calculated
         
 
 ## Bookings [/api/staff/v1/bookings]
+
+Bookings here refer to a user created reservation of resource that are represented natively in PlaceOS only. 
+These bookings are not associated with an external directory like MS Graph or Google Calendar. They are stored only in the PlaceOS database.
+PlaceOS bookings are most commonly used to reserve resources such as desks, car spaces, lockers, equipment, etc...
 
 ### Query bookings [GET /api/staff/v1/bookings?period_start={period_start}&period_end={period_end}&type={type}&zones={zones}&user={user}]
 
