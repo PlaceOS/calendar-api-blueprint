@@ -849,9 +849,9 @@ Return a specific staff member
     }
         
         
-### List staff [GET /api/staff/v1/people?q={q}]
+### Search staff [GET /api/staff/v1/people?q={q}]
 
-Search for a staff member, may return location information if it has been pre-calculated
+Search for a staff member, display their details
 
 + Parameters
     + q: `search` (Query param, optional) - (string) the search string
@@ -870,13 +870,12 @@ Search for a staff member, may return location information if it has been pre-ca
             }
         ]
 
-### Locate Staff [GET /api/staff/v1/people/{email}/]
+### Show Staff [GET /api/staff/v1/people/{email}/]
 
-Looks up the details of a staff member using their email address.
-Will attempt to locate them even if it has not been pre-calculated
+Looks up the details of a staff member using their email address or user id.
 
 + Parameters
-    + email: `email@address` (URI param, optional) - (string) the email of the staff member
+    + email: `email@address` (URI param, optional) - (string) the email or user id of the staff member
     
 + Response 200 (application/json)
 
@@ -887,41 +886,7 @@ Will attempt to locate them even if it has not been pre-calculated
             department: "Engineering",
             photo: "https://storage.com/steve.jpeg",
             card_number: 12345,
-            username: "stevevt",
-            location: {
-                meeting: {
-                    building: "zone_id",
-                    level: "zone_id",
-                    system: "system_id",
-                    map_id: "sys-1234",
-                    event_id: "meeting id"
-                },
-                desk_id: {
-                    building: "zone_id",
-                    level: "zone_id",
-                    map_id: "sys-1234",
-                    checked_in: 1234
-                },
-                laptop: {
-                    building: "zone_id",
-                    level: "zone_id",
-                    x: 1234,
-                    y: 123,
-                    last_seen: 12345
-                },
-                mobile: {
-                    building: "zone_id",
-                    level: "zone_id",
-                    x: 1234,
-                    y: 123,
-                    last_seen: 12345
-                },
-                geo: {
-                    lat: "1234",
-                    long: "123",
-                    last_seen: 12345
-                }
-            }
+            username: "stevevt"
         }
         
 
